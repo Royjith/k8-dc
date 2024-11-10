@@ -82,7 +82,7 @@ output "datastore_id" {
 }
 
 resource "vsphere_tag_category" "category" {
-  name             = "Kubernetesu" #should be unique to others existing names"
+  name             = "Kubernetesuu" #should be unique to others existing names"
   description      = "Category for Kubernetes VMs"
   cardinality      = "MULTIPLE"
   associable_types = ["VirtualMachine"]
@@ -114,7 +114,7 @@ resource "vsphere_virtual_machine" "vms" {
 
   disk {
     label            = "disk0"
-    size             = "50"
+    size             = "100"
     thin_provisioned = true
   }
 
