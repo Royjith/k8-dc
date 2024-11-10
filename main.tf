@@ -14,7 +14,7 @@ variable "host_datastore_map" {
   type = map(list(string))
   description = "Map of hosts to their accessible datastores"
   default = {
-    "172.16.165.5" = ["storage-1"]
+    "172.16.165.5" = ["storage-1"] #specify according to the available hosts
   }
 }
 provider "vsphere" {
@@ -78,20 +78,20 @@ output "datastore_id" {
 }
 
 resource "vsphere_tag_category" "category" {
-  name             = "Kubernetesu"
+  name             = "Kubernetesu" #should be unique to others existing names"
   description      = "Category for Kubernetes VMs"
   cardinality      = "MULTIPLE"
   associable_types = ["VirtualMachine"]
 }
 
 resource "vsphere_tag" "master" {
-  name        = "mastersu"
+  name        = "mastersu" #should be unique to others existing names"
   description = "Tag for master VMs"
   category_id = vsphere_tag_category.category.id
 }
 
 resource "vsphere_tag" "worker" {
-  name        = "workersu"
+  name        = "workersu" #should be unique to others existing names"
   description = "Tag for worker VMs"
   category_id = vsphere_tag_category.category.id
 }
@@ -102,7 +102,7 @@ resource "vsphere_virtual_machine" "vms" {
   name             = each.key
   resource_pool_id = data.vsphere_compute_cluster.compute_cluster.resource_pool_id
   datastore_id     = data.vsphere_datastore.selected_datastore[0].id
-  folder           = "Kubernetes"
+  folder           = "Kubernetes" #select the folder in which to deploy the k8s'
 
   num_cpus         = 2
   memory           = 4096
@@ -110,7 +110,7 @@ resource "vsphere_virtual_machine" "vms" {
 
   disk {
     label            = "disk0"
-    size             = "100"
+    size             = "50"
     thin_provisioned = true
   }
 
