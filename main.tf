@@ -18,7 +18,8 @@ variable "host_datastore_map" {
   type = map(list(string))
   description = "Map of hosts to their accessible datastores"
   default = {
-    "172.16.165.5" = ["storage-1"] #specify according to the available hosts
+    #"172.16.165.5" = ["storage-1"] #specify according to the available hosts
+     "172.16.151.5" = ["Kubernetes-POC_Vol01"] #specify according to the available hosts
   }
 }
 provider "vsphere" {
@@ -82,20 +83,20 @@ output "datastore_id" {
 }
 
 resource "vsphere_tag_category" "category" {
-  name             = "Kubernetesh" #should be unique to others existing names"
+  name             = "Kubern" #should be unique to others existing names"
   description      = "Category for Kubernetes VMs"
   cardinality      = "MULTIPLE"
   associable_types = ["VirtualMachine"]
 }
 
 resource "vsphere_tag" "master" {
-  name        = "mastersh" #should be unique to others existing names"
+  name        = "maste" #should be unique to others existing names"
   description = "Tag for master VMs"
   category_id = vsphere_tag_category.category.id
 }
 
 resource "vsphere_tag" "worker" {
-  name        = "workersh" #should be unique to others existing names"
+  name        = "worke" #should be unique to others existing names"
   description = "Tag for worker VMs"
   category_id = vsphere_tag_category.category.id
 }
